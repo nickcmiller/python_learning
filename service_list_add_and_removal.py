@@ -1,7 +1,6 @@
 #!/usr/bin/python
 services_list=[];
 continue_loop = True;
-
 while continue_loop:
     next_step = input("Add, Remove, or Exit? ")
     print(next_step)
