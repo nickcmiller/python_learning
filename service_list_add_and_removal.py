@@ -1,8 +1,9 @@
 #!/usr/bin/python
 services_list=[];
 continue_loop = True;
+
 while continue_loop:
-    next_step = input("Add, Remove, or Exit? ").toLowerCase()
+    next_step = input("Add, Remove, or Exit? ")
     print(next_step)
     if next_step == "Add" or next_step =="add":
         new_element= input("Add Service to List: ")
