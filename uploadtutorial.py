@@ -16,6 +16,6 @@ while n < 4:
     s3_resource.upload_file(
         Filename="testfile.txt",
         Bucket="totaltechnolog345435341",
-        Key="testfile"+n+".txt"
+        Key=f'testfile{n}.txt'
     )
     n+=1
