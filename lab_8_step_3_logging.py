@@ -1,9 +1,12 @@
 # Standard Imports
 import argparse
 import json
+import logging
 
 # 3rd Party Imports
 import boto3
+
+logging.basicConfig(filename='translate.log',level=logging.DEBUG)
 
 # Arguments
 parser = argparse.ArgumentParser(description="Provides translation  between one source language and another of the same set of languages.")
@@ -27,8 +30,9 @@ def open_input():
 # Boto3 function to use Amazon to translate the text and only return the Translated Text
 def translate_text(**kwargs):
     client = boto3.client('translate')
+    logging.info("Translate this: ", kwargs["Text"])
     response = client.translate_text(**kwargs)
-    print(response['TranslatedText'])
+    logging.info(response['TranslatedText'])
 
 # Add a Loop to iterate over the json file.
 def translate_loop():
@@ -51,22 +55,22 @@ def input_validation(item):
     TargetLanguageCode = json_input['TargetLanguageCode']
 
     if SourceLanguageCode == TargetLanguageCode:
-        print("The SourceLanguageCode is the same as the TargetLanguageCode - nothing to do")
+        logging.warning("The SourceLanguageCode is the same as the TargetLanguageCode - nothing to do")
         return False
     elif SourceLanguageCode not in languages and TargetLanguageCode not in languages:
-        print("Neither the SourceLanguageCode and TargetLanguageCode are valid - stopping")
+        logging.warning("Neither the SourceLanguageCode and TargetLanguageCode are valid - stopping")
         return False
     elif SourceLanguageCode not in languages:
-        print("The SourceLanguageCode is not valid - stopping")
+        logging.warning("The SourceLanguageCode is not valid - stopping")
         return False
     elif TargetLanguageCode not in languages:
-        print("The TargetLanguageCode is not valid - stopping")
+        logging.warning("The TargetLanguageCode is not valid - stopping")
         return False
     elif SourceLanguageCode in languages and TargetLanguageCode in languages:
-        print("The SourceLanguageCode and TargetLanguageCode are valid - proceeding")
+        logging.info("The SourceLanguageCode and TargetLanguageCode are valid - proceeding")
         return True
     else:
-        print("There is an issue")
+        logging.warning("There is an issue")
         return False
 
 # Main Function - use to call other functions
