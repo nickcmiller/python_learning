@@ -9,7 +9,7 @@ def translate_text():
         TargetLanguageCode='fr' 
     )
 
-    print(response)
+    print(response.TranslatedText)
 
 translate_text()
 
