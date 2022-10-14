@@ -1,4 +1,7 @@
 import boto3
+import os
+
+os.environ['AWS_DEFAULT_REGION'] = 'us-west-2'
 
 aws_resource=boto3.client("ec2")
 
