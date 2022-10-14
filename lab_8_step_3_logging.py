@@ -30,7 +30,7 @@ def open_input():
 # Boto3 function to use Amazon to translate the text and only return the Translated Text
 def translate_text(**kwargs):
     client = boto3.client('translate')
-    logging.info("Translate this: ", kwargs["Text"])
+    logging.info("Translate this: "+ kwargs["Text"])
     response = client.translate_text(**kwargs)
     logging.info(response['TranslatedText'])
 
