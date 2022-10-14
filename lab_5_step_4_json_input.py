@@ -15,4 +15,9 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-print(args)
+def open_input():
+    with open(args.filename) as file_object:
+        contents = json.load(file_object)
+        return contents['Input'][0]
+
+print(open_input())
