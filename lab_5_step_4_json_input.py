@@ -25,4 +25,5 @@ def translate_text(**kwargs):
     response = client.translate_text(**kwargs)
     print(response)
 
-translate_text(open_input())
+kwargs = open_input()
+translate_text(**open_input())
