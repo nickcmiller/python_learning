@@ -20,4 +20,9 @@ def open_input():
         contents = json.load(file_object)
         return contents['Input'][0]
 
-print(open_input())
+def translate_text(**kwargs): 
+    client = boto3.client('translate')
+    response = client.translate_text(**kwargs)
+    print(response)
+
+print(translate_text(open_input())
