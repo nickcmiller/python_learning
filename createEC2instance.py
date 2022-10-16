@@ -5,5 +5,5 @@ ec2_resource.create_instances(
     InstanceType="t1.micro",
     MaxCount=1,
     MinCount=1,
-    TagSpecifications=[{'Environment':'Dev'})]
+    TagSpecifications=[{'Environment':'Dev'}]
 )
