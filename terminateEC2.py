@@ -15,5 +15,7 @@ for r in reservations:
             to_terminate=True
     if to_terminate:
         print("Terminate", instanceId)
+    else:
+        print("Don't terminate", instanceId, "with ", tags)
     
 
