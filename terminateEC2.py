@@ -19,7 +19,7 @@ for r in reservations:
             logging.info("Terminate", instance_id)
             terminate_list.append(instance_id)
         else:
-            print(i['State'])
+            print(i['State']['Name']=='running')
             logging.info("Not terminating", instance_id)
 logging.info("Terminate List: ", terminate_list)
 result=ec2_client.terminate_instances(InstanceIds=terminate_list)
