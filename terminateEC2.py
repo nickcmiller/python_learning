@@ -20,5 +20,5 @@ for r in reservations:
     else:
         pass
 print("Terminate List: ", terminate_list)
-result=ec2_client.terminate_instances(terminate_list)
+result=ec2_client.terminate_instances(InstanceIds=terminate_list)
 print(result)
