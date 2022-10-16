@@ -3,12 +3,12 @@ import boto3
 
 ec2_client=boto3.client("ec2", region_name='us-east-1')
 list_instances=ec2_client.describe_instances()
+print(list_instances)
 reservations=list_instances["Reservations"]
-print(len(reservations))
+# print(len(reservations))
 
 terminate_list=[]
 for r in reservations:
-    print(r)
     instance_id=r["Instances"][0]['InstanceId']
     tags=r["Instances"][0]['Tags']
     to_terminate=False
