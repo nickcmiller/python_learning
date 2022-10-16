@@ -5,17 +5,20 @@ list_instances=ec2_client.describe_instances()
 reservations=list_instances["Reservations"]
 print(len(reservations))
 
+terminate_list=[]
 for r in reservations:
-    instanceId=r["Instances"][0]['InstanceId']
+    instance_id=r["Instances"][0]['InstanceId']
     tags=r["Instances"][0]['Tags']
     to_terminate=False
     for t in tags:
         if t['Key']=='Environment' and t['Value']=='Dev':
-            print(instanceId, t)
+            print(instance_id, t)
             to_terminate=True
     if to_terminate:
-        print("Terminate", instanceId)
+        print("Terminate", instance_id)
+        terminate_list.append(instance_id)
     else:
-        print("Don't terminate", instanceId, "with ", tags)
+        print("Don't terminate", instance_id, "with ", tags)
+print(terminate_list)
     
 
