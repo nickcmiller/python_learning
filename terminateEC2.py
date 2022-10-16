@@ -1,3 +1,4 @@
+from unittest import result
 import boto3 
 
 ec2_client=boto3.client("ec2")
@@ -12,13 +13,12 @@ for r in reservations:
     to_terminate=False
     for t in tags:
         if t['Key']=='Environment' and t['Value']=='Dev':
-            print(instance_id, t)
             to_terminate=True
     if to_terminate:
         print("Terminate", instance_id)
         terminate_list.append(instance_id)
     else:
-        print("Don't terminate", instance_id, "with ", tags)
-print(terminate_list)
-    
-
+        pass
+print("Terminate List: ", terminate_list)
+result=ec2_client.terminate_instances(terminate_list)
+print(result)
