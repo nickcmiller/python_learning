@@ -1,7 +1,7 @@
 from unittest import result
 import boto3 
 
-ec2_client=boto3.client("ec2")
+ec2_client=boto3.client("ec2", region_name='us-east-1')
 list_instances=ec2_client.describe_instances()
 reservations=list_instances["Reservations"]
 print(len(reservations))

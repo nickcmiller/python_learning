@@ -1,5 +1,5 @@
 import boto3 
-ec2_resource = boto3.resource("ec2")
+ec2_client=boto3.client("ec2", region_name='us-east-1')
 tags=[{'Key':'Environment','Value':'Dev'}]
 result = ec2_resource.create_instances(
     ImageId="ami-05fa00d4c63e32376",
