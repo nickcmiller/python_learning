@@ -8,12 +8,12 @@ print(len(reservations))
 for r in reservations:
     instanceId=r["Instances"][0]['InstanceId']
     tags=r["Instances"][0]['Tags']
+    to_terminate=False
     for t in tags:
-        to_terminate=False
         if t['Key']=='Environment' and t['Value']=='Dev':
             print(instanceId, t)
             to_terminate=True
-    if to_delete:
+    if to_terminate:
         print("Terminate", instanceId)
     
 
