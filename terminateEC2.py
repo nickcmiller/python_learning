@@ -22,5 +22,5 @@ for r in reservations:
         else:
             print("Not terminating", instance_id)
 print("Terminate List: ", terminate_list)
-# result=ec2_client.terminate_instances(InstanceIds=terminate_list)
+result=ec2_client.terminate_instances(InstanceIds=terminate_list)
 # print(result)
