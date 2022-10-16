@@ -9,7 +9,11 @@ for r in reservations:
     instanceId=r["Instances"][0]['InstanceId']
     tags=r["Instances"][0]['Tags']
     for t in tags:
+        to_terminate=False
         if t['Key']=='Environment' and t['Value']=='Dev':
-            print(instanceId, " : ", t)
+            print(instanceId, t)
+            to_terminate=True
+    if to_delete:
+        print("Terminate", instanceId)
     
 
