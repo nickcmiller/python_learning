@@ -10,6 +10,6 @@ for r in reservations:
     print(r["Instances"][0])
     for i in r["Instances"]:
         print("--------------")
-        print(i[''])
+        print(i)
         print("--------------")
 
