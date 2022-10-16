@@ -7,5 +7,6 @@ print(len(reservations))
 
 for r in reservations:
     instanceId=r["Instances"][0]['InstanceId']
-    print(instanceId)
+    tags=r["Instances"][0]['Tags']
+    print(instanceId, " : ", tags)
 
