@@ -9,7 +9,7 @@ for r in reservations:
     instanceId=r["Instances"][0]['InstanceId']
     tags=r["Instances"][0]['Tags']
     for t in tags:
-        if t['Key']=='Environment' and t['value']=='Dev':
+        if t['Key']=='Environment' and t['Value']=='Dev':
             print(instanceId, " : ", t)
     
 
