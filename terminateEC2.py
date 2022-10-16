@@ -17,10 +17,10 @@ for r in reservations:
             if t['Key']=='Environment' and t['Value']=='Dev':
                 to_terminate=True
         if to_terminate:
-            logging.info("Terminate", instance_id)
+            logging.info(f"Terminate {instance_id}", )
             terminate_list.append(instance_id)
         else:
             print(i['State']['Name']=='running')
-            logging.info("Not Dev and not terminating", instance_id)
-logging.info("Terminate List: ", terminate_list)
+            logging.info(f"Not Dev and not terminating {instance_id}")
+logging.info(f"Terminate List: {terminate_list}")
 result=ec2_client.terminate_instances(InstanceIds=terminate_list)
