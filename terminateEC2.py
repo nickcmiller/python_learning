@@ -7,5 +7,5 @@ print(len(reservations))
 
 for r in reservations:
     instanceId=r["Instances"][0]['InstanceId']
-    print instanceId
+    print(instanceId)
 
