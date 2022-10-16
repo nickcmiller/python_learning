@@ -38,6 +38,6 @@ for r in reservations:
 logging.info(f"Terminate List: {terminate_list}")
 if(len(terminate_list)>0):
     result=ec2_client.terminate_instances(InstanceIds=terminate_list)
-    logging.info(f"Result {result}")
+    logging.info(f"Result: {result}")
 else:
     logging.info("Terminate List is empty. Nothing to Terminate")
