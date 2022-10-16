@@ -37,4 +37,8 @@ for r in reservations:
         else:
             logging.info(f"{instance_id} is not running and will not be terminated")
 logging.info(f"Terminate List: {terminate_list}")
-result=ec2_client.terminate_instances(InstanceIds=terminate_list)
+if(len(terminate_list)>0):
+    result=ec2_client.terminate_instances(InstanceIds=terminate_list)
+    logging.info(f"Result {result}")
+else:
+    logging.info("Terminate List is empty. Nothing to Terminate")
