@@ -6,6 +6,6 @@ reservations=list_instances["Reservations"]
 print(len(reservations))
 
 for r in reservations:
-    print(r["Instances"])
+    print(r["Instances"]["InstanceId"])
     print("--------------")
 
