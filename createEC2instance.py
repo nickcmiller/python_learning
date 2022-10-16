@@ -4,8 +4,8 @@ tags=[{'Key':'Environment','Value':'Dev'}]
 result = ec2_resource.create_instances(
     ImageId="ami-05fa00d4c63e32376",
     InstanceType="t1.micro",
-    MaxCount=1,
-    MinCount=1,
+    MaxCount=3,
+    MinCount=2,
     TagSpecifications=[{'ResourceType': 'instance','Tags':tags}]
 )
 print(result)
