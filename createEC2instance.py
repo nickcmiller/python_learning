@@ -1,10 +1,10 @@
 import boto3 
 ec2_resource = boto3.resource("ec2")
-tags={'Environment':'Dev'}
+tags=[{'Key':'Environment','Value':'Dev'}]
 ec2_resource.create_instances(
     ImageId="ami-05fa00d4c63e32376",
     InstanceType="t1.micro",
     MaxCount=1,
     MinCount=1,
-    TagSpecifications=[{'Tags':[tags]}]
+    TagSpecifications=[{'Tags':tags}]
 )
