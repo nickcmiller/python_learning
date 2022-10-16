@@ -32,7 +32,6 @@ for r in reservations:
                 logging.info(f"{instance_id} is being terminated", )
                 terminate_list.append(instance_id)
             else:
-                print(i['State']['Name']=='running')
                 logging.info(f"{instance_id} is not tagged as Environment:Dev and will not be terminated")
         else:
             logging.info(f"{instance_id} is not running and will not be terminated")
