@@ -1,5 +1,6 @@
 import boto3 
 import logging
+logging.basicConfig(filename='myapp.log', level=logging.INFO)
 
 ec2_client=boto3.client("ec2", region_name='us-east-1')
 list_instances=ec2_client.describe_instances()
@@ -20,7 +21,6 @@ for r in reservations:
             terminate_list.append(instance_id)
         else:
             print(i['State']['Name']=='running')
-            logging.info("Not terminating", instance_id)
+            logging.info("Not Dev and not terminating", instance_id)
 logging.info("Terminate List: ", terminate_list)
 result=ec2_client.terminate_instances(InstanceIds=terminate_list)
-# print(result)
