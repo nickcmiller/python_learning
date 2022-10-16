@@ -3,9 +3,8 @@ import boto3
 
 ec2_client=boto3.client("ec2", region_name='us-east-1')
 list_instances=ec2_client.describe_instances()
-print(list_instances)
 reservations=list_instances["Reservations"]
-# print(len(reservations))
+print(len(reservations))
 
 terminate_list=[]
 for r in reservations:
@@ -18,7 +17,7 @@ for r in reservations:
             if t['Key']=='Environment' and t['Value']=='Dev':
                 to_terminate=True
         if to_terminate:
-            # print("Terminate", instance_id)
+            print("Terminate", instance_id)
             terminate_list.append(instance_id)
         else:
             print("Not terminating", instance_id)
