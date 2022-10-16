@@ -8,5 +8,8 @@ print(len(reservations))
 for r in reservations:
     instanceId=r["Instances"][0]['InstanceId']
     tags=r["Instances"][0]['Tags']
-    print(instanceId, " : ", tags)
+    for t in tags:
+        if t['Key']=='Environment' && t['value']=='Dev'
+        print(instanceId, " : ", t)
+    
 
