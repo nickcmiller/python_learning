@@ -40,4 +40,4 @@ if(len(stop_list)>0):
     result=ec2_client.stop_instances(InstanceIds=stop_list)
     logging.info(f"Result: {result}")
 else:
-    logging.info("Stop List is empty. Nothing to Stop")
+    logging.info("Stop List is empty. Nothing to stop")
