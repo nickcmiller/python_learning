@@ -5,9 +5,10 @@ endpoint="name@example.com"
 
 sns_client = boto3.client('sns', verify=False)
 topic = sns_client.create_topic(Name=name)
-print("Created topic ARN ", topic['TopicArn'])
+print(topic)
+# print("Created topic ARN ", topic['TopicArn'])
 
-subscription = sns_client.subscribe(TopicArn=topic['TopicArn'], Protocol="email", Endpoint=endpoint, ReturnSubscriptionArn=True)
-print("Subscribed ", endpoint, " to ", topic['topicArn'])
+# subscription = sns_client.subscribe(TopicArn=topic['TopicArn'], Protocol="email", Endpoint=endpoint, ReturnSubscriptionArn=True)
+# print("Subscribed ", endpoint, " to ", topic['topicArn'])
 
 
