@@ -8,6 +8,6 @@ topic = sns_client.create_topic(Name=name)
 print("Created topic ARN ", topic['TopicArn'])
 
 subscription = sns_client.subscribe(TopicArn=topic['TopicArn'], Protocol="email", Endpoint=endpoint, ReturnSubscriptionArn=True)
-print("Subscribed ", subscribe_email, " to ", topic['topicArn'])
+print("Subscribed ", endpoint, " to ", topic['topicArn'])
 
 
