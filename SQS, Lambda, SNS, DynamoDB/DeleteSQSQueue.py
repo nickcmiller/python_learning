@@ -16,6 +16,11 @@ queue_url = args.queue_url
 # Create an SQS client
 sqs = boto3.client('sqs')
 
-# Delete the queue
-result = sqs.delete_queue(QueueUrl=queue_url)
-print(result)
+# Try to delete the queue and return the result
+try: 
+    result = sqs.delete_queue(QueueUrl=queue_url)
+    print(result)
+except sqs.exceptions.QueueDoesNotExist:
+    print('Queue does not exist')
+except sqs.exceptions.ClientError:
+    print('Error accessing queue')
