@@ -1,0 +1,36 @@
+import json
+import os
+from datetime import datetime
+import boto3
+
+QUEUE_NAME = os.environ['QUEUE_NAME']
+
+sqs = boto3.client('sqs')
+
+
+def lambda_handler(event, context):
+    #Capturing time message received by Lambda
+    current_time = datetime.now().strftime('%H:%M:%S on %Y-%m-%d')
+   
+    #Extract the body from the event
+    body = json.loads(event['body'])
+    print(body)
+    
+    #Capture the message sent
+    queue_message = body['message']
+    
+    #Capture the Queue URL sent
+    queue_url = body['queue_url']
+    
+    #Create message for response
+    response_message = f'Sent message "{queue_message}" to SQS at {current_time}'
+    print("Response Message: ", response_message)
+    
+    #Sending message to SQS Queue
+    response = sqs.send_message(QueueUrl = queue_url, MessageBody = queue_message)
+    
+    return {
+        "statusCode": 200,
+        "headers": {"Content-Type": "application/json"},
+        "body": json.dumps(response)
+    }
