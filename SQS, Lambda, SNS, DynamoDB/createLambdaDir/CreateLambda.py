@@ -27,6 +27,8 @@ lambda_client = boto3.client('lambda')
 handler_name = "lambda_handler.lambda_handler"
 
 # Create a zip file object
+current_directory = os.getcwd()
+print(current_directory)
 shutil.make_archive("lambda_handler", "zip")
 with open("lambda_handler.zip", "rb") as f:
     zip_bytes = f.read()
