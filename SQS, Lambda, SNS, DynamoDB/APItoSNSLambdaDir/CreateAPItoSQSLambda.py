@@ -3,7 +3,7 @@ import shutil
 import argparse
 import os
 
-function_name = 'my_lambda_function'
+function_name = 'API_to_SQS'
 runtime = 'python3.8'
 timeout = 30
 memory_size = 128
