@@ -6,7 +6,7 @@ import argparse
 parser = argparse.ArgumentParser()
 
 # Add the queue_url argument
-parser.add_argument('--queue-url', required=True, help='The URL of the queue to delete')
+parser.add_argument('--queue-url', required=True, help='The URL of the queue to send message to')
 
 # Parse the arguments
 args = parser.parse_args()
