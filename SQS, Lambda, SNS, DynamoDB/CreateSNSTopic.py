@@ -1,3 +1,5 @@
+import boto3
+
 #function to create an SNS topic
 def create_SNS_topic(name):
     #Declaring ARN variable for later use

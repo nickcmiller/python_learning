@@ -1,14 +1,20 @@
-import boto3
+import json
+
 from CreateSNSTopic import create_SNS_topic, create_SNS_subscription
 
-#SNS topic name
-topic_name = 'test-topic'
-# The email address to subscribe to SNS topic
-email = 'nick@example.com'
+# Open the JSON file containing current state
+with open("current_state.json", "r") as file:
+    # Parse the JSON file
+    state = json.load(file)
 
-topic_arn = create_SNS_topic(topic_name)
-subscription_response = create_SNS_subscription(email, topic_arn, topic_name)
-print(topic_arn, subscription_response)
+###SNS###
+#Create topic
+state['topic_arn'] = create_SNS_topic(state['topic_name'])
 
+#Create Subscription
+state['subscription_response'] = create_SNS_subscription(state['email'], state['topic_arn'], state['topic_name'])
 
+with open("current_state.json", "w") as file:
+    # Write the updated data to the file
+    json.dump(state, file)
 

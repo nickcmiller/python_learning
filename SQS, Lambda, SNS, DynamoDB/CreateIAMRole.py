@@ -9,7 +9,8 @@ description = "A test role"
 iam = boto3.client('iam')
 
 # Create the policy document
-policy_document = {
+policy_document = """
+{
     "Version": "2012-10-17",
     "Statement": [
         {
@@ -23,13 +24,17 @@ policy_document = {
         }
     ]
 }
+"""
 
 # Create the policy
-policy_response = iam.create_policy(
-    PolicyName = policy_name,
-    PolicyDocument = json.dumps(policy_document)
-)
-policy_arn = policy_response['Policy']['Arn']
+def create_policy_document(policy):
+    policy_response = iam.create_policy(
+        PolicyName = policy_name,
+        PolicyDocument = json.dumps(policy_document)
+    )
+    return policy_response['Policy']['Arn']
+
+policy_arn = create_policy_document(policy_document)
 
 assume_role_document = { 
     "Version": "2012-10-17", 
