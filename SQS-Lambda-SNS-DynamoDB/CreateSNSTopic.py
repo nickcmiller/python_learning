@@ -31,7 +31,7 @@ def create_SNS_subscription(email, topic_arn, topic_name):
         #capture subscription ARN in a variable 
         subscription_arn = response['SubscriptionArn']
         # Print the subscription ARN
-        print(f'{email} SNS Subscription is {subscription_arn}')
+        print(f'SNS Subscription {email} is {subscription_arn}')
     except Exception as e:
         print(f'An error occurred while subscribing {email} to topic {topic_name}): {e}')
     return response['SubscriptionArn']
