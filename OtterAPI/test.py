@@ -64,13 +64,11 @@ class OtterApi:
             params={'username': email},
             cookies=csrf_response.cookies,
         )
-        print(response.content)
         
-        cookie_header = f'{response.headers["set-cookie"][0]}; {response.headers["set-cookie"][1]}'
+        cookie_header = ';'.join(response.headers["set-cookie"].split(',')[:2])
         print("COOKIE_HEADER:", cookie_header)
-        self.csrfToken = getCookieValueAndHeader(response.headers['set-cookie'][0], CSRF_COOKIE_NAME)[0]
+        self.csrfToken = response.headers["set-cookie"].split('csrftoken=')[1].split(';')[0]
         self.user = response.json()['user']
-        
         self.session.headers.update({'cookie': cookie_header})
         
         print('Successfully logged in to Otter.ai')
@@ -177,7 +175,7 @@ async def main():
     await otter_api.init()
     
     # Call getSpeeches
-    # speeches = await otter_api.getSpeeches()
+    speeches = await otter_api.getSpeeches()
     
     # Print the list of speeches
     # print(speeches)
