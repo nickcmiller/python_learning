@@ -74,10 +74,8 @@ class OtterApi:
         return response
 
     async def getSpeeches(self):
-        print(self)
         print(self.session.headers)
         
-        print(self.user['id'])
         response = self.session.get(
             f'{API_BASE_URL}/speeches',
             params={'userid': self.user['id']}
