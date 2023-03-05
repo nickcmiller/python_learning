@@ -1,2 +1,5 @@
 *.pyc
 secrets.py
+
+#ignoring state in the pg_project
+local_state.json
