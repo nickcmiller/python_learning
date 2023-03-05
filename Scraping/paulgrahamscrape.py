@@ -54,7 +54,6 @@ def get_essay(link_obj, base_url):
 
     # Construct the full link by appending the url to the base_url passed as parameter
     full_link = base_url + url
-    print(full_link)
     
     # Get the content of the webpage by making a request to the constructed link
     html = requests.get(full_link).content
@@ -121,7 +120,7 @@ def get_essay(link_obj, base_url):
 
 def chunk_essay(essay):
     # unpacking values from dictionary
-    title, url, date, thanks, content, *chunkless_section = essay.values()
+    title, url, date, thanks, content, length, tokens, *chunkless_section = essay.values()
 
     # create a list to store essay text chunks
     essay_text_chunks = []
@@ -199,17 +198,19 @@ def chunk_essay(essay):
             i += 1
 
     # create a dictionary to store the chunked essay section
-    chunked_section = {
+    chunked_essay = {
         "title": title,
         "url": url,
         "date": date,
         "thanks": thanks,
         "content": content,
+        "length": length,
+        "tokens": tokens,
         "chunks": essay_chunks
     }
 
     # return the chunked essay section
-    return chunked_section
+    return chunked_essay
 
 def main():
     links = get_links(url)
@@ -219,27 +220,21 @@ def main():
     for link in links:
         i+=1
         essay = get_essay(link, url)
-        print('----------------- \n', essay['length'])
-        print(i, " ", essay['title'], ": ", essay['tokens'], " ", link)
+        print(i, " ", essay['title'], essay['url'])
         chunked_essay = chunk_essay(essay)
         essays.append(chunked_essay)
-        # print(essays)
-        print("Essays: ", sum(essay['length'] for essay in essays))
-
     
     pg_json = {
         "current_date": "2023-03-01",
         "author": "Paul Graham",
         "url": "http://www.paulgraham.com/articles.html",
-        "length": sum(essay['content_length'] for essay in essays),
-        "tokens": sum(essay['content_tokens'] for essay in essays),
+        "length": sum(essay['length'] for essay in essays),
+        "tokens": sum(essay['tokens'] for essay in essays),
         "essays": essays
     }
     
-    print(pg_json)
-    
-    # with open("scripts/pg.json", "w") as f:
-    #     json.dump(pg_json, f)
+    with open("json_storage/pg.json", "w") as f:
+        json.dump(pg_json, f, indent=4)
 
 # Run the function
 main()
@@ -247,5 +242,6 @@ main()
 # links = get_links(url)
 # test_essay=get_essay(links[215], url)
 # test_chunk = chunk_essay(test_essay)
+# print(test_chunk['chunks'])
 # for c in test_chunk['chunks']:
 #    print(c['content'])
