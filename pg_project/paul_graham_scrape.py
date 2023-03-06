@@ -1,17 +1,17 @@
 # import required modules
 from bs4 import BeautifulSoup
-from transformers import AutoTokenizer
 import requests
 import re
 import asyncio
 import json
+from transformers import AutoTokenizer
+
+# initialize the tokenizer from the Hugging Face transformers library
+tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B")
 
 # define the base URL and chunk size for essay chunking
 url = "http://paulgraham.com/"
 chunk_size = 200
-
-# initialize the tokenizer from the Hugging Face transformers library
-tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-neo-1.3B")
 
 # define a function to encode text using the GPT-3 tokenizer
 def encode(text):
@@ -118,7 +118,7 @@ def get_essay(link_obj, base_url):
     # Return the updated essay dictionary
     return essay
 
-def chunk_essay(essay):
+def chunk_essay(essay, chunk_size):
     # unpacking values from dictionary
     title, url, date, thanks, content, length, tokens, *chunkless_section = essay.values()
 
@@ -212,7 +212,7 @@ def chunk_essay(essay):
     # return the chunked essay section
     return chunked_essay
 
-def main():
+def create_pg_json(url, chunk_size):
     links = get_links(url)
     print("Links: ", len(links))
     essays = []
@@ -221,7 +221,7 @@ def main():
         i+=1
         essay = get_essay(link, url)
         print(i, " ", essay['title'], essay['url'])
-        chunked_essay = chunk_essay(essay)
+        chunked_essay = chunk_essay(essay, chunk_size)
         essays.append(chunked_essay)
     
     pg_json = {
@@ -233,17 +233,12 @@ def main():
         "essays": essays
     }
     
-    with open("json_storage/pg.json", "w") as f:
+    return pg_json
+
+if __name__ == '__main__':
+    #retrieve and chunk all the essays from Paul Graham's website
+    pg_json = create_pg_json(url, chunk_size)
+    
+    #once the essays are chunked, it saves the data to a JSON file
+    with open("json_storage/pg_data.json", "w") as f:
         json.dump(pg_json, f, indent=4)
-
-# Run the function
-main()
-
-
-## Tests
-# links = get_links(url)
-# test_essay=get_essay(links[215], url)
-# test_chunk = chunk_essay(test_essay)
-# print(test_chunk['chunks'])
-# for c in test_chunk['chunks']:
-#    print(c['content'])
