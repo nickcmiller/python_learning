@@ -3,11 +3,15 @@ import boto3
 import time
 import os
 from botocore.exceptions import ClientError
+import requests
+
 
 # configure OpenAI API
-# openai_api_key = os.getenv('OPENAI_API_KEY')
+# bash command: export OPENAI_API_KEY=
+openai_api_key = os.getenv('OPENAI_API_KEY')
 openai_model = "text-embedding-ada-002"
-openai_url = "https://api.openai.com/v1/engines/" + openai_model + "/completions"
+openai_url = "https://api.openai.com/v1/completions"
+print(openai_api_key)
 
 # configure DynamoDB
 dynamodb = boto3.resource("dynamodb")
@@ -31,15 +35,15 @@ def generate_embeddings(essays):
                 content_tokens = chunk["content_tokens"]
     
                 # generate embedding with OpenAI API
-                # response = requests.post(
-                #     openai_url,
-                #     headers={"Content-Type": "application/json", "Authorization": "Bearer " + openai_api_key},
-                #     json={"prompt": content, "max_tokens": 128, "model": openai_model}
-                # )
+                response = requests.post(
+                    openai_url,
+                    headers={"Content-Type": "application/json", "Authorization": f"Bearer {openai_api_key}"},
+                    json={"prompt": content, "max_tokens": 128, "model": openai_model}
+                )
                 
-                # embedding = response.json()["choices"][0]["text"]
+                print(response.json())
                 
-                embedding = []
+                embedding = response.json()["choices"][0]["text"]
                 
                 # save data to items_to_write list
                 item = {
@@ -73,3 +77,8 @@ if __name__ == "__main__":
         book = json.load(file)
 
     generate_embeddings(book["essays"])
+    
+# curl https://api.openai.com/v1/engines/text-davinci-002/completions \
+# -H "Content-Type: application/json" \
+# -H "Authorization: Bearer  ${OPENAI_API_KEY}" \
+# -d '{"prompt": "Hello, World!", "max_tokens": 5}'
