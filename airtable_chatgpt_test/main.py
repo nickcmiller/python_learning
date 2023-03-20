@@ -7,14 +7,16 @@ params = {
 records = get_records(params)
 
 for record in records:
+    
     record_id = record['id']
     question = record['fields']['Question']
+    
     print('\n ------- \n')
-    print(question, "for ", record_id)
-    print('\n ------- \n')
+    print("Ask", question, "for Record ID", record_id)
+    
     
     answer = question_chatGPT(question)
-    print(answer)
+    print("ChatGPT Answer: ", answer)
     
     response = write_record(record_id, 
         {
@@ -22,4 +24,5 @@ for record in records:
         }
     )
     
-    print("Response: ", response)
+    print("Airtable Response: ", response)
+    print('\n ------- \n')

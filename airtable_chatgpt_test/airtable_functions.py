@@ -7,9 +7,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Airtable API key and base ID
-api_key = os.getenv('YOUR_API_KEY')
-base_id = os.getenv('YOUR_BASE_ID')
-table_name = os.getenv('YOUR_TABLE_NAME')
+api_key = os.getenv('AIRTABLE_API_KEY')
+base_id = os.getenv('AIRTABLE_BASE_ID')
+table_name = os.getenv('AIRTABLE_TABLE_NAME')
 
 def get_records(parameters=None):
     #Set endpoint for request
@@ -67,9 +67,7 @@ def get_base():
     # Send a GET request to the API endpoint
     response = requests.get(url, headers=headers)
     
+    #Pull the tables from the JSON and prettify them
     tables = json.dumps(response.json()['tables'], indent=2)
     
     return tables
-    
- 
-print(get_records())
