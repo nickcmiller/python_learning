@@ -63,7 +63,7 @@ def write_record(record_id, new_fields):
     return data
 
     
-print(get_records()[1])
+# print(get_records()[1])
 # print(write_record('rec2WlBdPAq4M5FxL', {
 #     'ChatGPT Answer': 'New Value 2'
 # }))
