@@ -10,14 +10,16 @@ for record in records:
     record_id = record['id']
     question = record['fields']['Question']
     print('\n ------- \n')
-    print(question, " for ", record_id)
+    print(question, "for ", record_id)
     print('\n ------- \n')
     
     answer = question_chatGPT(question)
     print(answer)
     
-    write_record(record_id, 
+    response = write_record(record_id, 
         {
             'ChatGPT Answer': answer
         }
-    )       
+    )
+    
+    print("Response: ", response)

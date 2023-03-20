@@ -53,7 +53,23 @@ def write_record(record_id, new_fields):
     response = requests.patch(endpoint, headers=headers, json=data)
     
     # Get the JSON data from the response
-    data = response.json()
+    data = json.dumps(response.json(), indent=2)
     
     return data
+ 
+def get_base():
+    # Set up the API endpoint URL
+    url = f'https://api.airtable.com/v0/meta/bases/{base_id}/tables'
+
+    # Set up the headers with your API key
+    headers = {'Authorization': f'Bearer {api_key}'}
     
+    # Send a GET request to the API endpoint
+    response = requests.get(url, headers=headers)
+    
+    tables = json.dumps(response.json()['tables'], indent=2)
+    
+    return tables
+    
+ 
+print(get_records())
