@@ -1,12 +1,20 @@
 # Introduction
 
-## Overview
-
 This code provides an example of how the OpenAI GPT-3 API can be integrated with Airtable to automate the process of generating and storing responses to questions, which can be useful for applications such as customer service, technical support, and educational content generation.
+
+# Pre-code Setup
+
+## Setting up the Airtable Table
+
+Have an Airtable Table set up with three columns: Index, Question, ChatGPT Answer.
+
+The Index is an "Autonumber" field, which is set as the primary field.
+
+Question and ChatGPT Answer are "Long Text" fields. The "Enable rich text formatting option" is selected for ChatGPT Answer as I asked ChatGPT to generate Markdown in its answers.
 
 ## Setting up Variables and API Keys
 
-All of the variables are stored in a .env file in my local directory. Be sure to add `*.env*` to your `.gitignore` file. 
+All environment variables are stored in a .env file in my local directory. Be sure to add `*.env*` to your `.gitignore` file. 
 ```
 AIRTABLE_API_KEY=<Your Airtable API key>
 AIRTABLE_BASE_ID=<Airtable Base containing the Table used for your flash cards>
@@ -20,13 +28,14 @@ Generate your Airtable API token here: https://airtable.com/create/tokens
 
 Get your OpenAI API key here: https://platform.openai.com/account/api-keys
 
+
 # How the Code Works
 
 ## Airtable Functions
 
 The `airtable_functions()` contains the `get_records()` and `write_record()` functions.
 
-The `get_records()` function will retrieve all records for the defined Airtable Table(`AIRTABLE_TABLE_NAME`) within Airtable base (`AIRTABLE_BASE_ID`). The get_records() function takes an optional parameters argument, which can be used to filter the records returned by the API. The function first sets the API endpoint by combining the base ID and table name, then sets the headers and parameters for the API request. It sends a GET request to the API endpoint using the requests library, then extracts the records from the response JSON and returns them as a list.
+The `get_records()` function will retrieve all records for the defined Airtable Table(`AIRTABLE_TABLE_NAME`) within the Airtable base (`AIRTABLE_BASE_ID`). The `get_records()`` function takes an optional parameters argument, which can be used to filter the records returned by the API. The function first sets the API endpoint by combining the base ID and table name, then sets the headers and parameters for the API request. It sends a GET request to the API endpoint using the requests library, then extracts the records from the response JSON and returns them as a list.
 
 The `write_record()` function will be used to write ChatGPT's answers back to the table. It takes a record\_id argument and a dictionary of new\_fields that represent the updated field values for the record. The function sets the API endpoint, headers, and request body based on the given arguments, then sends a PATCH request to the API to update the record. It finished by returning the JSON response from the API as a formatted string.
 
@@ -38,4 +47,4 @@ To handle potential API connection errors, the function is wrapped in a loop and
 
 ## Main Function
 
-This Python code uses `chatgpt_functions.py` and `airtable_functions.py` to automate the process of generating ChatGPT responses to questions in an Airtable database. It first filters for records without filled ChatGPT Answer fields using the Airtable API, then retrieves those records using the `get_records()` function. For each record, it extracts the record ID and question text, generates a ChatGPT response to the question using the `question_chatGPT()` function, and writes the response back to the Airtable record using the `write_record()` function.
+In `main.py`, our code uses `chatgpt_functions.py` and `airtable_functions.py` to automate the generation of ChatGPT responses to questions in an Airtable database. It first filters for records without filled ChatGPT Answer fields using the Airtable API, then retrieves those records using the `get_records()` function. For each record, it extracts the record ID and question text, generates a ChatGPT response to the question using the `question_chatGPT()` function, and writes the response back to the Airtable record using the `write_record()` function.
