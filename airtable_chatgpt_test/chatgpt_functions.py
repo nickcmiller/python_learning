@@ -10,6 +10,7 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def question_chatGPT(question):
+    # Wrap API call in a loop and try block that will try 3 times with a 10 sec delay between each try
     for i in range(3):
         try:
             # Generate chat response using OpenAI API
@@ -22,8 +23,8 @@ def question_chatGPT(question):
               ]
             )
             
+            # Returning the answer from the content of the ChatGPT response
             answer = completion['choices'][0]['message']['content']
-            
             return answer
         except openai.error.APIConnectionError:
             print("try ", i)
