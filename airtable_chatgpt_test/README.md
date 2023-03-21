@@ -20,9 +20,9 @@ Generate your Airtable API token here: https://airtable.com/create/tokens
 
 Get your OpenAI API key here: https://platform.openai.com/account/api-keys
 
-## How the Code Works
+# How the Code Works
 
-# Airtable Functions
+## Airtable Functions
 
 The `airtable_functions()` contains the `get_records()` and `write_record()` functions.
 
@@ -30,7 +30,7 @@ The `get_records()` function will retrieve all records for the defined Airtable 
 
 The `write_record()` function will be used to write ChatGPT's answers back to the table. It takes a record\_id argument and a dictionary of new\_fields that represent the updated field values for the record. The function sets the API endpoint, headers, and request body based on the given arguments, then sends a PATCH request to the API to update the record. It finished by returning the JSON response from the API as a formatted string.
 
-# ChatGPT Function
+## ChatGPT Function
 
 The `question_chatGPT()` function generates a response to a given question using the OpenAI API. It does this by calling the `openai.ChatCompletion.create()` function, which takes a text question as input and generates a text response based on the provided context. The OpenAI model I've opted to use for this project is `gpt-3.5-turbo`. In this project, I've instructed the model to give detailed responses to a student studying for a technical exam.
 
