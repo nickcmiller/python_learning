@@ -17,8 +17,8 @@ def question_chatGPT(question):
             completion = openai.ChatCompletion.create(
               model="gpt-3.5-turbo",
               messages=[
-                {"role": "user", "content": "I am a student preparing to take a technical exam. I want detailed responses to the following practice questions and topics. Please return the answers in Markdown."},
-                {"role": "assistant", "content": "Great! I'd be happy. Please provide me with the questions or topics and I'll do my best to provide detailed answers for you."},
+                {"role": "user", "content": "I am a student preparing to take a technical exam. I want detailed responses to the following practice question or topic. Return the answers in Markdown."},
+                {"role": "assistant", "content": "Happy to help! Provide me with the questions or topics and I'll provide a detailed answers for you."},
                 {"role": "user", "content": question }
               ]
             )
