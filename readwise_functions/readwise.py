@@ -36,7 +36,6 @@ def extract_highlights(books):
     highlights = []
     for book in books:
         for highlight in book['highlights']:
-            
             new_highlight_object = {
                 "highlight_id": highlight['id'],
                 "book_id": book['user_book_id'],
