@@ -75,7 +75,6 @@ def split_text_into_chunks(text, max_token_length):
     return chunks
 
 def create_embedding(text):
-    text = text.replace("\n", " ")
     
     response = openai.Embedding.create(
         input=text,
@@ -84,11 +83,19 @@ def create_embedding(text):
     
     embedding = response['data'][0]['embedding']
     return embedding
+
+def chunk_and_embed (long_text, max_token_length):
+    chunks = split_text_into_chunks(long_text, max_token_length)
+    embedding_list = []
     
-def add_embedding(highlights):
-    # new_highlights = []
-    for highlight in highlights:
-        text = highlight['highlight_text']
-        embedding = create_embedding(text)
-        highlight['embedding'] = embedding
-    return highlights
+    for chunk in chunks:
+        embedding = create_embedding(chunk)
+        embedding_list.append({
+            "chunk": chunk,
+            "embedding": embedding
+        })
+        
+    return embedding_list
+    
+        
+        
