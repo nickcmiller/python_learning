@@ -6,6 +6,7 @@ import json
 import openai
 from transformers import AutoTokenizer
 from dotenv import load_dotenv
+import numpy as np
 
 
 # Load environment variables
@@ -96,6 +97,19 @@ def chunk_and_embed (long_text, max_token_length):
         })
         
     return embedding_list
-    
-        
-        
+
+
+def search_text(embedding_list, query):
+    # Create an embedding for the query
+    query_embedding = create_embedding(query)
+
+    # Calculate cosine similarity between the query vector and all the text embeddings in the embedding_list
+    for embedding_dict in embedding_list:
+        embedding = embedding_dict["embedding"]
+        similarity_score = np.dot(embedding, query_embedding) / (np.linalg.norm(embedding) * np.linalg.norm(query_embedding))
+        embedding_dict["similarity_score"] = similarity_score
+
+    # Sort the results by similarity score
+    results = sorted(embedding_list, key=lambda x: x["similarity_score"], reverse=True)
+
+    return results
