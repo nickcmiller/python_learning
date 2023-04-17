@@ -85,17 +85,26 @@ def create_embedding(text):
     embedding = response['data'][0]['embedding']
     return embedding
 
-def chunk_and_embed (long_text, max_token_length):
-    chunks = split_text_into_chunks(long_text, max_token_length)
+def chunk_and_embed(text_dictionary, key, max_token_length):
+    text = text_dictionary[key]
+    chunks = split_text_into_chunks(text, max_token_length)
     embedding_list = []
     
     for chunk in chunks:
         embedding = create_embedding(chunk)
-        embedding_list.append({
-            "chunk": chunk,
-            "embedding": embedding
-        })
+        embedding_dict = {"chunk": chunk, "embedding": embedding}
+        for k, v in text_dictionary.items():
+            embedding_dict[k] = v
+        embedding_list.append(embedding_dict)
         
+    return embedding_list
+
+def aggregate_embedding_list(text_dictionaries, key, max_token_length):
+    embedding_list = []
+    for text_dictionary in text_dictionaries:
+        text = text_dictionary[key]
+        chunks = chunk_and_embed(text_dictionary, key, max_token_length)
+        embedding_list.extend(chunks)
     return embedding_list
 
 
